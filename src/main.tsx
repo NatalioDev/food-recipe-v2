@@ -1,10 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
+import './index.css'
+import {BrowserRouter as Router} from "react-router-dom"
+import { GlobalState } from './utilites/ContextRecipe.tsx'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <Router>
+    <React.StrictMode>
+      <GlobalState>
+        <App />
+      </GlobalState>
+    </React.StrictMode>
+  </Router>
 )

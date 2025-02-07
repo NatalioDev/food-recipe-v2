@@ -10,4 +10,4 @@ export default defineConfig({
     setupFiles: './src/SetupTest.ts',
   },
   base: "/food-recipe-app-v2/"
-})
+}) 
