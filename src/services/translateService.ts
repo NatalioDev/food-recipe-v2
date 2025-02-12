@@ -1,10 +1,10 @@
 import axios from "axios";
 
-export const translateToEnglish = async ( ingredient: string ): Promise<string> =>{
+export const translateToEnglish = async ( searchParam: string ): Promise<string> =>{
         try{
             const response = await axios.post("https://libretranslate.com/translate", 
             {
-                q: ingredient,
+                q: searchParam,
                 source: "es",
                 target: "en",
                 format: "text",

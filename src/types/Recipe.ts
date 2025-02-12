@@ -1,4 +1,4 @@
-export type Recipes = {
+export type Recipe = {
     id:                    number;
     title:                 string;
     image:                 string;
@@ -9,6 +9,12 @@ export type Recipes = {
     usedIngredients:       SedIngredient[];
     unusedIngredients:     any[];
     likes:                 number;
+  }
+
+  export interface RecipeResponse{
+    data: {
+      recipes: Recipe[];
+    }
   }
   
   export enum ImageType {
@@ -29,3 +35,23 @@ export type Recipes = {
     extendedName?: string;
     image:         string;
   }
+
+  export type RecipeDetailsResponse ={
+    ingredients: Ingredient[];
+  }
+
+  export type Ingredient = {
+    amount: Amount;
+    image:  string;
+    name:   string;
+}
+
+export type Amount = {
+    metric: Metric;
+    us:     Metric;
+}
+
+export type Metric = {
+    unit:  string;
+    value: number;
+}

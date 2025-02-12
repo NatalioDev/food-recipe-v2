@@ -1,20 +1,20 @@
 import { createContext, FormEvent, ReactNode, useEffect, useState } from "react";
-import { Recipes, SedIngredient } from "../types/Recipe";
+import { Ingredient, Recipe } from "../types/Recipe";
 import { useNavigate } from "react-router-dom";
 import { searchRecipesByIngredient } from "../services/recipeService";
 
 
 interface GlobalContextProps {
-    searchParam: string[];
-    setSearchParam: (param: string[]) => void;
+    searchParam: string;
+    setSearchParam: (param: string) => void;
     loading: boolean;
-    recipeList: Recipes[];
-    recipeDetailsData: SedIngredient | null;
-    setRecipeDetailsData: (recipe: SedIngredient | null) => void;
-    favoritesList: Recipes[];
+    recipeList: Recipe[];
+    recipeDetailsData: Ingredient[] | null;
+    setRecipeDetailsData: (data: Ingredient[] | null) => void;
+    favoritesList: Recipe[];
     error: string | null;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-    handleAddToFavorite: (item: Recipes) => void;
+    handleAddToFavorite: (id: number) => void;
 }
 
 export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -25,11 +25,11 @@ interface GlobalStateProps{
 
 export const GlobalState = ({ children } : GlobalStateProps) => {
 
-    const [searchParam, setSearchParam] = useState<string[]>([]);
+    const [searchParam, setSearchParam] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [recipeList, setRecipeList] = useState<Recipes[]>([]);
-    const [recipeDetailsData, setRecipeDetailsData] = useState<SedIngredient | null>(null);
-    const [favoritesList, setfavoritesList] = useState<Recipes[]>([]);
+    const [recipeList, setRecipeList] = useState<Recipe[]>([]);
+    const [recipeDetailsData, setRecipeDetailsData] = useState<Ingredient[] | null>(null);
+    const [favoritesList, setfavoritesList] = useState<Recipe[]>([]);
     const [error, setError] = useState<string | null>(null)
 
     const navigate = useNavigate();
@@ -71,11 +71,15 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
         }
     }
 
-    const handleAddToFavorite = (recipe : Recipes) => {
+    const handleAddToFavorite = (id : number) => {
+        const recipe = recipeList.find((item) => item.id === id);
+
+        if(!recipe) return;
+
         if(favoritesList.some((item) => item.id === recipe.id)){
-            setfavoritesList(favoritesList.filter((item) => item.id !== recipe.id))
+            setfavoritesList(favoritesList.filter((item) => item.id !== recipe.id));
         }else{
-            setfavoritesList([...favoritesList, recipe]);
+            setfavoritesList([...favoritesList, recipe])
         }
     };
 
