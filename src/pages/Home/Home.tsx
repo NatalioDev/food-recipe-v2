@@ -15,22 +15,27 @@ const Home = () => {
   // Destructuramos las propiedades del contexto
   const { recipeList, loading } = context;
 
-  // Mensaje de cargando
-  if(loading) return <div>Loading... Please wait!</div>
 
   return (
-    <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10">
-      {recipeList && recipeList.length > 0 ? (
-        recipeList.map((i) => 
-        <ItemRecipe
-          key={i.id}
-          title={i.title}
-          image={i.image}
-          id={i.id}
-        />)
+    <div className="py-8 container mx-auto">
+      {loading ? (
+        <div className="text-center text-xl font-semibold text-gray-200">
+          Loading... Please wait!
+        </div>
+      ): recipeList && recipeList.length > 0 ? (
+        <div className="flex flex-wrap justify-center gap-10">
+          {recipeList.map((recipe) => (
+            <ItemRecipe
+              key={recipe.id}
+              title={recipe.title}
+              image={recipe.image}
+              id={recipe.id}
+            />
+          ))}
+        </div>
       ):(
-        <div className="text-xl text-center text-black font-extrabold lg:text-4xl">
-          Nothing to show. Please search something.
+        <div className="text-center text-2xl font-bold text-white mt-10">
+          No recipes found. Please try another search.
         </div>
       )}
     </div>

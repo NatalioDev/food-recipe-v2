@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const ItemRecipe = ({ title, image, id }: { title: string; image: string; id: number } ) => {
+const ItemRecipe = ({ title, image, id }: { title: string; image: string; id: string } ) => {
   return (
     <div className="flex flex-col w-80 overflow-hidden p-5 bg-white/75 shadow-xl gap-5 border-2 rounded-2xl border-white">
       <div className="h-40 flex justify-center overflow-hidden items-center rounded-xl">
@@ -11,7 +11,6 @@ const ItemRecipe = ({ title, image, id }: { title: string; image: string; id: nu
           {title}
         </h3>
         <Link 
-          state={{ title, image }}
           to={`/recipe-details/${id}`}
           className="text-sm p-3 mt-5 px-8 rounded-lg uppercase font-medium tracking-wider inline-block shadow-md bg-black text-white"
         >

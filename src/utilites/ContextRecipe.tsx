@@ -1,5 +1,5 @@
 import { createContext, FormEvent, ReactNode, useEffect, useState } from "react";
-import { Ingredient, Recipe } from "../types/Recipe";
+import { RecipeDetailsResponse, Recipe } from "../types/Recipe";
 import { useNavigate } from "react-router-dom";
 import { searchRecipesByIngredient } from "../services/recipeService";
 
@@ -9,12 +9,12 @@ interface GlobalContextProps {
     setSearchParam: (param: string) => void;
     loading: boolean;
     recipeList: Recipe[];
-    recipeDetailsData: Ingredient[] | null;
-    setRecipeDetailsData: (data: Ingredient[] | null) => void;
+    recipeDetailsData: RecipeDetailsResponse[] | null;
+    setRecipeDetailsData: (data: RecipeDetailsResponse[] | null) => void;
     favoritesList: Recipe[];
     error: string | null;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-    handleAddToFavorite: (id: number) => void;
+    handleAddToFavorite: (recipe: Recipe) => void;
 }
 
 export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -28,7 +28,7 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
     const [searchParam, setSearchParam] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [recipeList, setRecipeList] = useState<Recipe[]>([]);
-    const [recipeDetailsData, setRecipeDetailsData] = useState<Ingredient[] | null>(null);
+    const [recipeDetailsData, setRecipeDetailsData] = useState<RecipeDetailsResponse[] | null>(null);
     const [favoritesList, setfavoritesList] = useState<Recipe[]>([]);
     const [error, setError] = useState<string | null>(null)
 
@@ -71,15 +71,12 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
         }
     }
 
-    const handleAddToFavorite = (id : number) => {
-        const recipe = recipeList.find((item) => item.id === id);
-
-        if(!recipe) return;
-
-        if(favoritesList.some((item) => item.id === recipe.id)){
+    const handleAddToFavorite = (recipe : Recipe) => {
+        
+        if (favoritesList.some((item) => item.id === recipe.id)){
             setfavoritesList(favoritesList.filter((item) => item.id !== recipe.id));
         }else{
-            setfavoritesList([...favoritesList, recipe])
+            setfavoritesList([...favoritesList,recipe]);
         }
     };
 

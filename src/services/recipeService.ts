@@ -2,47 +2,53 @@ import axios from "axios";
 import { Recipe, RecipeDetailsResponse } from "../types/Recipe";
 // import { translateToEnglish } from "./translateService";
 
-const API_URL = "https://api.spoonacular.com";
-const API_KEY = "084d6158d0de4d7fb300c45fcca326f3"
+const API_URL = "https://www.themealdb.com/api/json/v1/1";
 
 export const searchRecipesByIngredient = async (searchParam: string): Promise<Recipe[]> =>{
     try{
-        // // Traduce cada ingrediente si es necesario
-        // const translatedIngredients = await Promise.all(searchParam(translateToEnglish));
 
-        // // Une los ingredientes traducidos en una sola cadena separada por comas
-        // const query = translatedIngredients.join(",");
-
-        // Llama a la API de Spoonacular
-        const response = await axios.get<Recipe[]>(`${API_URL}/recipes/findByIngredients`,
+        // Llama a la API
+        const response = await axios.get(`${API_URL}/filter.php`,
             {
                 params:{
-                    ingredients: searchParam,
-                    apiKey: API_KEY,
+                    i: searchParam,
                 },
             });
 
             console.log(response);
-            return response.data;
+
+            if(response.data.meals){
+                // Mapear los datos para ajustarse a tu estructura de Recipe
+                return response.data.meals.map((meal: any) => ({
+                    id: meal.idMeal,
+                    title: meal.strMeal,
+                    image: meal.strMealThumb,
+                }));
+            }else{
+                return [];
+            }
     }catch(e){
         console.error("Error fetching recipes", e);
         throw e;
     }
 }
 
-export const getRecipeById = async (id:number) : Promise<RecipeDetailsResponse> => {
+export const getRecipeById = async (id:string) : Promise<RecipeDetailsResponse> => {
     try{
-        const response = await axios.get<RecipeDetailsResponse>(`${API_URL}/recipes/${id}/ingredientWidget.json`,
+        const response = await axios.get(`${API_URL}/lookup.php`,
             {
                 params:{
-                    id:id,
-                    apiKey: API_KEY,
+                    i:id,
                 },
-            }
-        )
+            });
         console.log(response)
-        // Devolvemos directamente el objeto completo
-        return response.data
+        
+        if(response.data.meals && response.data.meals.length > 0){
+            // Devolver directamente el primer resultado, ya que la busqueda por ID solo devuelve una receta
+            return response.data.meals[0];
+        }else{
+            throw new Error("Recipe not found");
+        }
     }catch(e){
         console.error("Error fetching recipe deteails",e);
         throw e;
