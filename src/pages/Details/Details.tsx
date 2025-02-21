@@ -21,9 +21,9 @@ const Details = () => {
   if(!context){
     throw new Error("Details must be used within a GlobalProvider");
   }
-
   const {
     handleAddToFavorite,
+    isFavorite,
   } = context;
 
 
@@ -60,7 +60,7 @@ const Details = () => {
     <div className="container mx-auto max-w-7xl px-4 sm:px-10 lg:px-64 py-10 grid grid-cols-1 gap-10">
       {/* Imagen de la receta */}
       <div className="lg:row-start-auto">
-        <div className="h-auto max-h-96 overflow-hidden rounded-xl group shadow-lg shadow-black/50">
+        <div className="h-auto max-h-full overflow-hidden rounded-xl group shadow-lg shadow-black/50">
           <img 
             src={recipeDetails?.strMealThumb || "https://via.placeholder.com/300"} 
             alt={recipeDetails?.strMeal || "Recipe Image"} 
@@ -88,7 +88,9 @@ const Details = () => {
             handleAddToFavorite(recipe);
           }
           }}
-          className="text-white text-2xl ml-2 mb-1 transition duration-150 hover:text-yellow-500 hover:text-3xl"
+          className={`text-2xl ml-2 mb-1 transition duration-150 
+            ${isFavorite(recipeDetails?.idMeal || '') ? "text-yellow-500" : "text-white"}
+            hover:text-yellow-500 hover:text-3xl`}
           >
             <FaStar/>
         </button>
