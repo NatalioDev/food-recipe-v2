@@ -21,7 +21,7 @@ const InputSearch = () => {
                 value={searchParam}
                 placeholder="Ej: apples,flour,sugar"
                 onChange={(e) => setSearchParam(e.target.value)}
-                className="bg-slate-200 text-teal-950 font-bold uppercase p-3 px-8 rounded-3xl outline-none shadow-md shadow-black focus:shadow-teal-600
+                className="bg-slate-200 text-teal-950 font-bold uppercase p-3 px-8 rounded-3xl outline-none shadow-md shadow-black focus:shadow-teal-500
                 lg:w-96
                 "
             />

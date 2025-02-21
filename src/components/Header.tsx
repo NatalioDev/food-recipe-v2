@@ -4,9 +4,9 @@ import InputSearch from "./InputSearch"
 const Header = () => {
 
   return (
-    <header>
+    <header className="bg-black/15 rounded-b-xl shadow-sm shadow-white ">
         {/* Title app */}
-        <div className=" flex justify-between items-center py-8 container mx-auto flex-col gap-5 lg:flex-row lg:gap-0">
+        <div className=" flex justify-between items-center py-8 container  mx-auto flex-col gap-5 lg:flex-row lg:gap-0">
             <h2 className="text-2xl font-bold uppercase text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)]">
                 <NavLink to={"/"}>Food Recipe</NavLink>
             </h2>
@@ -18,7 +18,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/"
-              className={({isActive})=> isActive ? "text-teal-900 font-bold uppercase [-webkit-text-stroke:0.5px_white] tracking-widest" : "font-bold uppercase text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] hover:text-[#2ecc71] duration-300 tracking-widest" }
+              className={({isActive})=> isActive ? "text-teal-500 font-bold uppercase [-webkit-text-stroke:0.5px_white] tracking-widest" : "font-bold uppercase text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] hover:text-teal-500 duration-300 tracking-widest" }
             >
               Home
             </NavLink>
@@ -26,7 +26,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/favorites"
-              className={({isActive})=> isActive ? "text-teal-900 font-bold uppercase [-webkit-text-stroke:0.5px_white] tracking-widest" : "font-bold uppercase text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] hover:text-[#2ecc71] duration-300 tracking-widest" }
+              className={({isActive})=> isActive ? "text-teal-500 font-bold uppercase [-webkit-text-stroke:0.5px_white] tracking-widest" : "font-bold uppercase text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] hover:text-teal-500 duration-300 tracking-widest" }
             >
               Favorites
             </NavLink>

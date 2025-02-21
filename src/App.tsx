@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen p-6 bg-teal-950 text-yellow-100 text-lg">
+      <div className="min-h-screen bg-teal-950 text-yellow-100 text-lg">
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>}/>

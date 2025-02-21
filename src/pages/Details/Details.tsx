@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom"
 import { GlobalContext } from "../../utilites/ContextRecipe";
 import { getRecipeById } from "../../services/recipeService";
 import { RecipeDetailsResponse } from "../../types/Recipe";
+import { FaStar } from "react-icons/fa";
+
+
 
 const Details = () => {
 
@@ -54,10 +57,10 @@ const Details = () => {
   }
 
   return (
-    <div className="container mx-auto py-10 grid grid-cols-1 gap-10 lg:grid-cols-2">
+    <div className="container mx-auto max-w-7xl px-4 sm:px-10 lg:px-64 py-10 grid grid-cols-1 gap-10">
       {/* Imagen de la receta */}
-      <div className="row-start-2 lg:row-start-auto">
-        <div className="h-96 overflow-hidden rounded-xl group">
+      <div className="lg:row-start-auto">
+        <div className="h-auto max-h-96 overflow-hidden rounded-xl group shadow-lg shadow-black/50">
           <img 
             src={recipeDetails?.strMealThumb || "https://via.placeholder.com/300"} 
             alt={recipeDetails?.strMeal || "Recipe Image"} 
@@ -65,12 +68,16 @@ const Details = () => {
           />
         </div>
       </div>
+
       {/* Detalles de la receta */}
-      <div className="flex flex-col gap-3">
-        <h3 className="font-bold text-2xl truncate text-black">
-          {recipeDetails?.strMeal || "Recipe Title"}
-        </h3>
-        <button 
+      <div className="bg-black/20 px-4 py-4 rounded-lg shadow-sm shadow-white sm:px-6">
+      {/* Título y botón de favoritos */}
+      <div className="flex flex-col items-center">
+        <div className=" flex items-center gap-3">
+          <h3 className="font-bold text-xl capitalize text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] sm:text-2xl md:text-3xl">
+            {recipeDetails?.strMeal || "Recipe Title"}
+          </h3>
+          <button 
           onClick={() => {
             if(recipeDetails){
             const recipe = {
@@ -81,25 +88,29 @@ const Details = () => {
             handleAddToFavorite(recipe);
           }
           }}
-          className="p-3 px-8 rounded-lg text-sm uppercase font-medium tracking-wider mt-3 inline-block shadow-md bg-black text-white"
-          >Add to favorites
+          className="text-white text-2xl ml-2 mb-1 transition duration-150 hover:text-yellow-500 hover:text-3xl"
+          >
+            <FaStar/>
         </button>
+        </div>
 
         {/* Description */}
-        <div>
-          <h4 className="text-2xl font-semibold text-black">Instructions:</h4>
-          <p className="text-lg text-gray-200 mt-2 whitespace-pre-line">
+        <div className="px-2 sm:px-4 py-2">
+          <h4 className="text-lg font-semibold text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] sm:text-xl md:text-2xl">Instructions:</h4>
+          <p className="text-base text-white mt-2 whitespace-pre-line leading-relaxed sm:text-lg">
             {recipeDetails?.strInstructions || "No instructions available."}
           </p>
         </div>
+
         
-        {/* Lista de ingredientes */}
-        <div>
-          <h4 className="text-2xl font-semibold text-gray-300">Ingredients:</h4>
-          <ul className="flex flex-col gap-2 mt-2">
+      </div>
+      {/* Lista de ingredientes */}
+      <div className="py-4 ml-2 sm:ml-3">
+          <h4 className="text-lg mb-2 font-semibold text-white drop-shadow-[3px_2px_2px_rgba(0,0,0,0.7)] text-center sm:text-xl sm:text-left md:text-2xl">Ingredients:</h4>
+          <ul className="flex flex-col gap-1 ml-2 sm:gap-2 text-center sm:text-left">
             {getIngredients().map((ingredient, index) => (
               <li key={index}>
-                <span className="text-lg font-medium text-gray-500 capitalize">
+                <span className="text-base mt-0 text-gray-300 font-bold capitalize sm:text-lg">
                   {ingredient}
                 </span>
               </li>

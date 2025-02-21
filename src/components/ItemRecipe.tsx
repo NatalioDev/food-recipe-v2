@@ -24,7 +24,7 @@ const ItemRecipe = ({ title, image, id }: { title: string; image: string; id: st
           isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <h3 className="font-bold text-2xl text-teal-400 text-center line-clamp-2 overflow-hidden">
+        <h3 className="font-bold text-2xl capitalize text-teal-400 text-center line-clamp-2 overflow-hidden">
           {title}
         </h3>
         <Link
