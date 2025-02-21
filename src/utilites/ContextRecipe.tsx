@@ -15,6 +15,7 @@ interface GlobalContextProps {
     error: string | null;
     handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
     handleAddToFavorite: (recipe: Recipe) => void;
+    isFavorite: (param: string) => boolean;
 }
 
 export const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
@@ -29,7 +30,10 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [recipeList, setRecipeList] = useState<Recipe[]>([]);
     const [recipeDetailsData, setRecipeDetailsData] = useState<RecipeDetailsResponse[] | null>(null);
-    const [favoritesList, setfavoritesList] = useState<Recipe[]>([]);
+    const [favoritesList, setfavoritesList] = useState<Recipe[]>(() =>{
+        const storedFavorites = localStorage.getItem("favoritesList");
+        return storedFavorites ? JSON.parse(storedFavorites) : [];
+    });
     const [error, setError] = useState<string | null>(null)
 
     const navigate = useNavigate();
@@ -71,6 +75,11 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
         }
     }
 
+    const isFavorite = (id: string) =>{
+        return favoritesList.some((recipe) => recipe.id === id)
+    }
+
+
     const handleAddToFavorite = (recipe : Recipe) => {
         
         if (favoritesList.some((item) => item.id === recipe.id)){
@@ -93,6 +102,7 @@ export const GlobalState = ({ children } : GlobalStateProps) => {
                 handleSubmit,
                 setRecipeDetailsData,
                 handleAddToFavorite,
+                isFavorite,
             }}
         >
             {children}
