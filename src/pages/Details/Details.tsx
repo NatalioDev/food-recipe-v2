@@ -60,17 +60,17 @@ const Details = () => {
     <div className="container mx-auto max-w-7xl px-4 sm:px-10 lg:px-64 py-10 grid grid-cols-1 gap-10">
       {/* Imagen de la receta */}
       <div className="lg:row-start-auto">
-        <div className="h-auto max-h-full overflow-hidden rounded-xl group shadow-lg shadow-black/50">
+        <div className="h-auto max-h-auto overflow-hidden rounded-xl group shadow-lg shadow-black/50">
           <img 
             src={recipeDetails?.strMealThumb || "https://via.placeholder.com/300"} 
             alt={recipeDetails?.strMeal || "Recipe Image"} 
-            className="w-full h-full object-cover block group-hover:scale-105 duration-300" 
+            className="w-full h-full object-cover block group-hover:scale-110 duration-300" 
           />
         </div>
       </div>
 
       {/* Detalles de la receta */}
-      <div className="bg-black/20 px-4 py-4 rounded-lg shadow-sm shadow-white sm:px-6">
+      <div className="bg-black/20 px-4 py-4 rounded-2xl shadow-xl shadow-black/50 sm:px-6">
       {/* Título y botón de favoritos */}
       <div className="flex flex-col items-center">
         <div className=" flex items-center gap-3">
