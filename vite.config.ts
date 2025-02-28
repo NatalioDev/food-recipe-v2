@@ -9,4 +9,5 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/SetupTest.ts',
   },
+  base: "/food-recipe-v2/",
 }) 
